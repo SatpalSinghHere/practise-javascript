@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Currency Exchange</title>
+        <script>
+
+            document.addEventListener("DOMContentLoaded", function(){
+
+                document.querySelector("form").onsubmit = function(){
+                    var myHeaders = new Headers();
+                    myHeaders.append("apikey", "qAtXtSzhQ1mkWmAT1S76PgHqZASrT3zV");
+
+                    var requestOptions = {
+                    method: 'GET',
+                    redirect: 'follow',
+                    headers: myHeaders
+                    };
+
+                    const amount = document.querySelector("#amount").value;
+                    const from = document.querySelector("#from").value;
+                    const to = document.querySelector("#to").value;
+                    
+                    console.log(typeof(amount));
+                    fetch(`https://api.apilayer.com/currency_data/convert?to=${to}&from=${from}&amount=${amount}`, requestOptions)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        const rate = data.result;
+                        document.querySelector("#display").innerHTML = `${amount} ${from} is euivalent to ${rate} ${to}.`;
+                    } )
+                        
+                    .catch(error => console.log('error', error));
+
+                    
+                    return false;
+                }
+                                  
+            })
+            
+
+        </script>
+    </head>
+    <body>
+        <form>
+            <input type="number" id="amount" placeholder="Amount">
+            <input id="from" type="text" placeholder="from">
+            <input id="to" type="text" placeholder="To">
+            <input id="submit" type="submit" value="Convert">
+        </form>
+        <div>
+            <h2 id="display"></h2>
+        </div>
+    </body>
+</html>

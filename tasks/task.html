@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tasks</title>
+        <script>
+            document.addEventListener("DOMContentLoaded", function(){   //loading DOM content
+
+                //By default, submit button is disabled
+                document.querySelector("#submit").disabled = true;
+
+                document.querySelector("#task").onkeyup = function(){
+
+                    if(document.querySelector("#task").value.length > 0){
+                        document.querySelector("#submit").disabled = false;
+                    }
+                    else{
+                        document.querySelector("#submit").disabled = true;
+                    }   
+                    }
+
+                document.querySelector("form").onsubmit = function(){   //this fxn runs when form is submitted
+
+                    
+                    const task = document.querySelector("#task").value; //storing value of text typed by user in a constant variable called 'task'
+
+                    let li = document.createElement("li");  
+                    li.innerHTML = task;    //creating a new HTML element 'li' and storing it in variable of name 'li'
+
+                    document.querySelector("#tasks").append(li);    //adding the li element inside another element of id="tasks"
+
+                    document.querySelector("#task").value = '';
+
+                    document.querySelector("#submit").disabled = true;
+                    
+                    return false;   //to stop the form from submitting and redirecting to another webpage
+                };
+            });
+        </script>
+    </head>
+    <body>
+        <h1>Tasks:</h1>
+        <ul id="tasks">
+
+        </ul>
+        <form>
+            <input id="task" type="text" placeholder="New Task" >
+            <input type="submit" id="submit">
+        </form>
+        
+
+    </body>
+</html>
